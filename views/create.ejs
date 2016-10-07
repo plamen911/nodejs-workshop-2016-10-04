@@ -1,0 +1,21 @@
+<% include partials/htmlbegin.ejs %>
+
+<h1>New TODO</h1>
+<form action="/create" method="post" enctype="multipart/form-data">
+    <% if (errors.length) { %>
+        <ul>
+            <% for (let i = 0; i < errors.length; i++) { %>
+                <li><%= errors[i] %></li>
+            <% } %>
+        </ul>
+    <% } %>
+    <p><label for="title">Title:</label>
+        <input type="text" id="title" name="title" value="<%= title %>" placeholder="TODO Title..."></p>
+    <p><label for="description">Description:</label>
+        <textarea id="description" name="description" placeholder="TODO Description..."><%= description %></textarea></p>
+    <p><label for="userfile">Select Image to Upload:</label>
+        <input type="file" id="userfile" name="userfile" accept="image/*"></p>
+    <p><input type="submit" value="Add TODO" class="btn btn-primary"></p>
+</form>
+
+<% include partials/htmlend.ejs %>

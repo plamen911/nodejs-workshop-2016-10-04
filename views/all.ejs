@@ -1,0 +1,30 @@
+<% include partials/htmlbegin.ejs %>
+
+<h1>TODO List</h1>
+<% if (todoList.length) { %>
+    <table class="tabletest2">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>State</th>
+                <th colspan="2">&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for (let i = 0; i < todoList.length; i++) { %>
+                <tr>
+                    <td><%= todoList[i].title %></td>
+                    <td><%= todoList[i].description %></td>
+                    <td><%= todoList[i].state %></td>
+                    <td><a href="/details/<%= todoList[i].id %>">Details</a></td>
+                    <td><a href="/remove/<%= todoList[i].id %>">Remove</a></td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+<% } else { %>
+    <p>List is empty.</p>
+<% } %>
+
+<% include partials/htmlend.ejs %>

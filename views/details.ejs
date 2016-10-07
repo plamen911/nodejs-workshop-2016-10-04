@@ -1,0 +1,75 @@
+<% include partials/htmlbegin.ejs %>
+
+<h1>TODO: <%= title %></h1>
+<form action="/state" method="post">
+    <input type="hidden" id="todoId" name="todoId" value="<%= id %>">
+    <table class="tabletest2">
+        <tr>
+            <th>ID</th>
+            <td><%= id %></td>
+        </tr>
+        <tr>
+            <th>State</th>
+            <td><%= state %></td>
+        </tr>
+        <tr>
+            <th>Title</th>
+            <td><%= title %></td>
+        </tr>
+        <tr>
+            <th>Description</th>
+            <td><%= description %></td>
+        </tr>
+        <% if (filePath) { %>
+        <tr>
+            <th>Image</th>
+            <td><a href="/images/<%= filePath %>" class="thumbnail" target="_blank">
+                    <img src="/images/<%= filePath %>" alt="" title="<%= fileName %>" width="120">
+                </a>
+            </td>
+        </tr>
+        <% } %>
+        <tr>
+            <td>
+                <input type="submit" value="<% if (state == 'Done') { %>Pending<% } else { %>Done<% } %>">
+            </td>
+            <td>&nbsp;</td>
+        </tr>
+    </table>
+</form>
+
+<h2>Add Comment</h2>
+<form action="/details/<%= id %>/comment" method="post">
+    <% if (errors.length) { %>
+        <ul>
+            <% for (let i = 0; i < errors.length; i++) { %>
+            <li><%= errors[i] %></li>
+            <% } %>
+        </ul>
+    <% } %>
+    <p><label for="comment">Comment:</label><br>
+        <textarea id="comment" name="comment" placeholder="TODO Comment..."></textarea></p>
+    <p><input type="submit" value="Submit"></p>
+</form>
+
+<% if (comments.length) { %>
+    <h2>Comments</h2>
+    <table class="tabletest2">
+        <thead>
+            <tr>
+                <th>Comment</th>
+                <th>Date Added</th>
+            </tr>
+        </thead>
+        <tbody>
+        <% for (let i = 0; i < comments.length; i++) { %>
+            <tr>
+                <td><%= comments[i].comment %></td>
+                <td><%= comments[i].createdon %></td>
+            </tr>
+        <% } %>
+        </tbody>
+    </table>
+<% } %>
+
+<% include partials/htmlend.ejs %>
